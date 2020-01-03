@@ -1,0 +1,16 @@
+body {
+  background-color: #282c34 !important;
+  color: white !important;
+}
+
+.App {
+  text-align: left;
+}
+
+.itemRow {
+  margin: 10px 10px;
+}
+
+.modalBody {
+  background-color: #4d5463;
+}
