@@ -3,9 +3,9 @@ var router = express.Router();
 const mongoose = require("mongoose");
 var Item = mongoose.model("Item", require("../../models/Item"));
 
-router.get("/", (req, res) => {
-  res.send("Pobierz api /api/items");
-});
+// router.get("/", (req, res) => {
+//   res.send("Pobierz api /api/items");
+// });
 
 router.get("/api/items", (req, res) => {
   Item.find((err, item) => {
