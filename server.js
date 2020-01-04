@@ -6,11 +6,19 @@ var cors = require("cors");
 const path = require("path");
 
 var mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost/test", {
+// mongoose.connect("mongodb://localhost/test", {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+//   useFindAndModify: false
+// });
+
+mongoose.connect("mongodb+srv://wojot:<password>@fullstack-app-2mpeu.mongodb.net/test?retryWrites=true&w=majority", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false
 });
+
+
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", function() {
