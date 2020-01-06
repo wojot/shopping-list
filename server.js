@@ -22,7 +22,8 @@ db.once("open", function() {
 
 app.use(express.json());
 app.use(cors());
-app.use("/", require("./routes/api/items"));
+// app.use("/", require("./routes/api/items"));
+app.use('/api/items', require('./routes/api/items'));
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
