@@ -6,11 +6,6 @@ var cors = require("cors");
 const path = require("path");
 
 var mongoose = require("mongoose");
-// mongoose.connect("mongodb://localhost/test", {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-//   useFindAndModify: false
-// });
 
 mongoose.connect("mongodb+srv://wojot:wojtek11@fullstack-app-2mpeu.mongodb.net/test?retryWrites=true&w=majority", {
   useNewUrlParser: true,
