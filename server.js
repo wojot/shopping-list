@@ -5,21 +5,17 @@ const path = require("path");
 
 var mongoose = require("mongoose");
 
-mongoose.connect(
-  "mongodb+srv://wojot:wojtek11@fullstack-app-2mpeu.mongodb.net/test?retryWrites=true&w=majority",
-  {
+const db = config.get('mongoURI');
+mongoose
+  .connect(db, { 
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
     useCreateIndex: true
-  }
-);
+  })
+  .then(() => console.log('MongoDB Connected...'))
+  .catch(err => console.log(err));
 
-var db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error:"));
-db.once("open", function() {
-  console.log("Database connected");
-});
 
 app.use(express.json());
 app.use(cors());
@@ -37,8 +33,6 @@ app.use(function(req, res, next) {
   next();
 });
 app.options("*", cors());
-
-
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
