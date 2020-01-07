@@ -27,7 +27,7 @@ const dbURL = config.mongoURI;
   }
 
 console.log('Attempting to connect to mongoose');
-mongoose.connect(dbURL, mongoCFG)
+mongoose.connect(dbURL, mongoCFG) 
   .then(() => {
     console.log("Connected to Mongo database!");
   })
