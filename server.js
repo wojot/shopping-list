@@ -2,10 +2,12 @@ const express = require("express");
 const app = express();
 var cors = require("cors");
 const path = require("path");
+const config = require('./config/default.json');
+app.use(express.json());
 
 var mongoose = require("mongoose");
 
-const db = config.get('mongoURI');
+const db = config.mongoURI;
 mongoose
   .connect(db, { 
     useNewUrlParser: true,
@@ -16,8 +18,6 @@ mongoose
   .then(() => console.log('MongoDB Connected...'))
   .catch(err => console.log(err));
 
-
-app.use(express.json());
 app.use(cors());
 // app.use("/", require("./routes/api/items"));
 app.use("/api/items", require("./routes/api/items"));
