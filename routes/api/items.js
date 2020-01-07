@@ -3,15 +3,16 @@ var router = express.Router();
 const mongoose = require("mongoose");
 var Item = mongoose.model("Item", require("../../models/Item"));
 
-// router.get("/", (req, res) => {
-//   res.send("Pobierz api /api/items");
-// });
+router.get("/", (req, res) => {
+  res.send("Pobierz api /api/items");
+});
 
 
 // @route   GET api/items
 // @desc    Get items
 // @access  Private
 router.get("/", (req, res) => {
+  console.log('express router approached')
   Item.find((err, item) => {
     res.json(item);
   });
