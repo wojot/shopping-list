@@ -1,7 +1,5 @@
 const express = require("express");
-var router = express.Router();
 const app = express();
-const port = process.env.PORT || 8080;
 var cors = require("cors");
 const path = require("path");
 
@@ -12,7 +10,8 @@ mongoose.connect(
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useFindAndModify: false
+    useFindAndModify: false,
+    useCreateIndex: true
   }
 );
 
@@ -48,5 +47,6 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
+const port = process.env.PORT || 8080;
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));

@@ -7,12 +7,19 @@ var Item = mongoose.model("Item", require("../../models/Item"));
 //   res.send("Pobierz api /api/items");
 // });
 
+
+// @route   GET api/items
+// @desc    Get items
+// @access  Private
 router.get("/", (req, res) => {
   Item.find((err, item) => {
     res.json(item);
   });
 });
 
+// @route   DELETE api/items
+// @desc    Delete items
+// @access  Private
 router.delete("/", (req, res) => {
   const id = req.body.id;
   Item.findByIdAndRemove(id, err => {
@@ -25,6 +32,9 @@ router.delete("/", (req, res) => {
   });
 });
 
+// @route   POST api/items
+// @desc    Add item
+// @access  Private
 router.post("/", (req, res) => {
   const newItem = new Item({
     name: req.body.name
