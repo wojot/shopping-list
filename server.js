@@ -7,16 +7,34 @@ app.use(express.json());
 
 var mongoose = require("mongoose");
 
-const db = config.mongoURI;
-mongoose
-  .connect(db, { 
+const dbURL = config.mongoURI;
+// mongoose
+//   .connect(dbURL, { 
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//     useFindAndModify: false,
+//     useCreateIndex: true
+//   })
+//   .then(() => console.log('MongoDB Connected...'))
+//   .catch(err => console.log(err));
+
+
+  mongoCFG = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
     useCreateIndex: true
+  }
+
+console.log('Attempting to connect to mongoose');
+mongoose.connect(dbURL, mongoCFG)
+  .then(() => {
+    console.log("Connected to Mongo database!");
   })
-  .then(() => console.log('MongoDB Connected...'))
-  .catch(err => console.log(err));
+  .catch(err => {
+    console.error("App starting error:", err.stack);
+  });
+
 
 app.use(cors());
 // app.use("/", require("./routes/api/items"));
