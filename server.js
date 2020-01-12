@@ -1,5 +1,4 @@
 const express = require("express");
-var router = express.Router();
 const app = express();
 const port = process.env.PORT || 8080;
 var cors = require("cors");
@@ -24,22 +23,8 @@ db.once("open", function() {
 
 app.use(express.json());
 app.use(cors());
-// app.use("/", require("./routes/api/items"));
 app.use("/api/items", require("./routes/api/items"));
-
-
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
-app.options("*", cors());
-
-
+app.use("/api/users", require("./routes/api/users")); 
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
