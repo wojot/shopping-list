@@ -12,7 +12,6 @@ var Item = mongoose.model("Item", require("../../models/Item"));
 // @desc    Get items
 // @access  Private
 router.get("/", (req, res) => {
-  console.log('express router approached')
   Item.find((err, item) => {
     res.json(item);
   });
