@@ -1,27 +1,41 @@
 const express = require("express");
 const app = express();
-const port = process.env.PORT || 8080;
 var cors = require("cors");
 const path = require("path");
+const config = require('./config/default.json');
+app.use(express.json());
 
 var mongoose = require("mongoose");
 
-mongoose.connect(
-  "mongodb+srv://wojot:wojtek11@fullstack-app-2mpeu.mongodb.net/test?retryWrites=true&w=majority",
-  {
+const dbURL = config.mongoURI;
+// mongoose
+//   .connect(dbURL, { 
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//     useFindAndModify: false,
+//     useCreateIndex: true
+//   })
+//   .then(() => console.log('MongoDB Connected...'))
+//   .catch(err => console.log(err));
+
+
+  mongoCFG = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useFindAndModify: false
+    useFindAndModify: false,
+    useCreateIndex: true
   }
-);
 
-var db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error:"));
-db.once("open", function() {
-  console.log("Database connected");
-});
+console.log('Attempting to connect to mongoose');
+mongoose.connect(dbURL, mongoCFG) 
+  .then(() => {
+    console.log("Connected to Mongo database!");
+  })
+  .catch(err => {
+    console.error("App starting error:", err.stack);
+  });
 
-app.use(express.json());
+
 app.use(cors());
 app.use("/api/items", require("./routes/api/items"));
 app.use("/api/users", require("./routes/api/users")); 
@@ -32,5 +46,7 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
 }
+
+const port = process.env.PORT || 5000;
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
