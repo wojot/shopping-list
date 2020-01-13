@@ -1,6 +1,6 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-var Item = new mongoose.Schema({
+const Item = new mongoose.Schema({
     name: String,
     added: { type: Date, default: Date.now },
   });

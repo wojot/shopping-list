@@ -2,32 +2,21 @@ const express = require("express");
 const app = express();
 var cors = require("cors");
 const path = require("path");
-const config = require('./config/default.json');
+const config = require("./config/default.json");
 app.use(express.json());
 
 var mongoose = require("mongoose");
 
 const dbURL = config.mongoURI;
-// mongoose
-//   .connect(dbURL, { 
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-//     useFindAndModify: false,
-//     useCreateIndex: true
-//   })
-//   .then(() => console.log('MongoDB Connected...'))
-//   .catch(err => console.log(err));
+mongoCFG = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+  useCreateIndex: true
+};
 
-
-  mongoCFG = {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-    useCreateIndex: true
-  }
-
-console.log('Attempting to connect to mongoose');
-mongoose.connect(dbURL, mongoCFG) 
+mongoose
+  .connect(dbURL, mongoCFG)
   .then(() => {
     console.log("Connected to Mongo database!");
   })
@@ -35,22 +24,9 @@ mongoose.connect(dbURL, mongoCFG)
     console.error("App starting error:", err.stack);
   });
 
-
 app.use(cors());
-// app.use("/", require("./routes/api/items"));
 app.use("/api/items", require("./routes/api/items"));
-
-
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
-app.options("*", cors());
+app.use("/api/users", require("./routes/api/users"));
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
