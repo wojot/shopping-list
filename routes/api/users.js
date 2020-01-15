@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const User = mongoose.model("User", require("../../models/User.js"));
 const config = require("../../config/default.json");
 const saltRounds = config.saltRounds;
+const authMiddleware = require('../../middleware/authMiddleware');
 var jwt = require("jsonwebtoken");
 
 router.get("/", (req, res) => {
@@ -12,7 +13,7 @@ router.get("/", (req, res) => {
     if (err) res.status(500).send({ msg: "Error when retrieving Users!" });
     res.json(user);
   });
-});
+}); 
 
 router.post("/register", (req, res) => {
   const { email, password } = req.body;
@@ -32,7 +33,7 @@ router.post("/register", (req, res) => {
           newUser.save((err, newUser) => {
             if (err) res.status(500).send({ msg: "Error when adding new User!" });
             const token = jwt.sign({ id: newUser._id }, config.secretJWT, { expiresIn: "1h" });
-            res.status(200).send({
+            res.status(200).json({
               msg: `Dodano uzytkownika ${newUser.email}`,
               token,
               registeredUser: {
@@ -47,5 +48,9 @@ router.post("/register", (req, res) => {
     }
   });
 });
+
+router.get('/details', authMiddleware, (req, res) => { 
+  res.send("hello");
+})
 
 module.exports = router;

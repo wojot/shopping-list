@@ -19,7 +19,7 @@ router.post("/", (req, res) => {
       if (err) res.status(500).send({ msg: "Error occured!" });
       if (theSame) {
         const token = jwt.sign({ id: usr._id }, config.secretJWT, { expiresIn: "1h" });
-        res.send({
+        res.json({
             msg: "Login successful!",
             token,
             user: { id: usr._id, email: usr.email, added: usr.added }
