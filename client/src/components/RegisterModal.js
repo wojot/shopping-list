@@ -7,10 +7,11 @@ import {
   ModalFooter,
   FormGroup,
   Label,
-  Input
+  Input,
+  Alert
 } from "reactstrap";
 import { connect } from "react-redux";
-import { register } from "../actions/authActions";
+import { register, registerError } from "../actions/authActions";
 
 class RegisterModal extends Component {
   state = {
@@ -18,7 +19,9 @@ class RegisterModal extends Component {
     email: "",
     password: "",
     passwordConfirm: "",
-    wrongConfirm: false
+    wrongConfirm: false,
+    errorMsg: "",
+    errorStatus: null
   };
 
   toggle = () => this.setState({ modal: !this.state.modal });
@@ -43,11 +46,11 @@ class RegisterModal extends Component {
 
   onSubmit = () => {
     const { email, password, passwordConfirm } = this.state;
-    if(password === passwordConfirm) {
-        const user = { email, password };
-        this.props.register(user);
+    if (password === passwordConfirm) {
+      const user = { email, password };
+      this.props.register(user);
     } else {
-        alert("Password are not the same!");
+      this.props.registerError(400, "Password are not the same!");
     }
   };
 
@@ -66,6 +69,11 @@ class RegisterModal extends Component {
             Registration
           </ModalHeader>
           <ModalBody className="modalBody">
+            {this.props.errorMsg ? (
+              <Alert color="danger">{this.props.errorMsg}</Alert>
+            ) : (
+              ""
+            )}
             <FormGroup>
               <Label for="email">Email</Label>
               <Input
@@ -117,11 +125,14 @@ class RegisterModal extends Component {
 }
 
 const mapStateToProps = state => ({
-  //   
+  errorMsg: state.auth.errorMsg,
+  errorStatus: state.auth.errorStatus
+  // user: {}
 });
 
 const mapDispatchToProps = dispatch => ({
-  register: user => dispatch(register(user))
+  register: user => dispatch(register(user)),
+  registerError: (status, msg) => dispatch(registerError(status, msg))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RegisterModal);
