@@ -1,4 +1,4 @@
-import { REGISTER, REGISTER_ERROR } from "./types";
+import { REGISTER_ERROR, REGISTER_SUCCESS } from "./types";
 const axios = require("axios");
 
 export const register = user => dispatch => {
@@ -11,11 +11,17 @@ export const register = user => dispatch => {
     }
   })
     .then(function(response) {
-      console.log(response);
-
-      // received    data: {msg: "Dodano uzytkownika email@gmail.com",
-      //token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlM…TU4fQ.auUj2qWtqmYUObf41BCQ__coRekzeCvyzuDzwj1jdjc", registeredUser: {…}}
-      dispatch({ type: REGISTER, payload: user, msg: response.data.msg });
+      if (response.status === 200) {
+        dispatch(
+          registerSuccess(
+            response.data.registeredUser,
+            response.data.msg,
+            response.data.token
+          )
+        );
+      } else {
+        dispatch(registerError(response.status, response.data.msg));
+      }
     })
     .catch(function(error) {
       dispatch(registerError(error.response.status, error.response.data.msg));
@@ -24,4 +30,8 @@ export const register = user => dispatch => {
 
 export const registerError = (status, msg) => dispatch => {
   dispatch({ type: REGISTER_ERROR, status, msg });
+};
+
+export const registerSuccess = (userPayload, msg, token) => dispatch => {
+  dispatch({ type: REGISTER_SUCCESS, userPayload, msg, token });
 };

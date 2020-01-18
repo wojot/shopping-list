@@ -3,6 +3,7 @@ import "./App.css";
 import ItemList from "./components/ItemList";
 import AddItem from "./components/AddItem";
 import NavbarMenu from './components/NavbarMenu'
+// import ToastComponent from './components/ToastComponent'
 
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
@@ -18,6 +19,7 @@ export default class App extends Component {
       <Provider store={store}>
         <div className="container">
           <NavbarMenu />
+          {/* <ToastComponent msg="test" title="Temat" delay={1000} /> */}
           <AddItem />
           <ItemList />
         </div>

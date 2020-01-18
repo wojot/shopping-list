@@ -21,7 +21,8 @@ class RegisterModal extends Component {
     passwordConfirm: "",
     wrongConfirm: false,
     errorMsg: "",
-    errorStatus: null
+    errorStatus: null,
+    isAuthenticated: false
   };
 
   toggle = () => this.setState({ modal: !this.state.modal });
@@ -49,6 +50,7 @@ class RegisterModal extends Component {
     if (password === passwordConfirm) {
       const user = { email, password };
       this.props.register(user);
+      //   this.toggle;
     } else {
       this.props.registerError(400, "Password are not the same!");
     }
@@ -126,8 +128,9 @@ class RegisterModal extends Component {
 
 const mapStateToProps = state => ({
   errorMsg: state.auth.errorMsg,
-  errorStatus: state.auth.errorStatus
-  // user: {}
+  errorStatus: state.auth.errorStatus,
+  user: state.auth.user,
+  isAuthenticated: state.auth.isAuthenticated
 });
 
 const mapDispatchToProps = dispatch => ({
