@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 const User = mongoose.model("User", require("../../models/User.js"));
 const config = require("../../config/default.json");
-const saltRounds = config.saltRounds;
+const saltRounds = parseInt(config.saltRounds);
 const authMiddleware = require('../../middleware/authMiddleware');
 var jwt = require("jsonwebtoken");
 
@@ -28,7 +28,6 @@ router.post("/register", (req, res) => {
     } else {
       bcrypt.genSalt(saltRounds, function(err, salt) {
         bcrypt.hash(password, salt, function(err, hash) {
-          console.log(`${email} - ${hash}`);
           let newUser = new User({ email, password: hash });
           newUser.save((err, newUser) => {
             if (err) res.status(500).send({ msg: "Error when adding new User!" });

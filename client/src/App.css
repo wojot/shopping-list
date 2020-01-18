@@ -14,3 +14,8 @@ body {
 .modalBody {
   background-color: #4d5463;
 }
+
+.navbarMenu {
+  background-color: #2f343e !important;
+  margin-bottom: 20px;
+}
