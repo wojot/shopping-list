@@ -1,4 +1,4 @@
-import { REGISTER_ERROR, REGISTER_SUCCESS } from "./types";
+import { REGISTER_ERROR, REGISTER_SUCCESS, CLEAR_MSGS } from "./types";
 const axios = require("axios");
 
 export const register = user => dispatch => {
@@ -35,3 +35,7 @@ export const registerError = (status, msg) => dispatch => {
 export const registerSuccess = (userPayload, msg, token) => dispatch => {
   dispatch({ type: REGISTER_SUCCESS, userPayload, msg, token });
 };
+
+export const clearMsgs = () => dispatch => {
+  dispatch({type: CLEAR_MSGS});
+}

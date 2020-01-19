@@ -33,7 +33,7 @@ router.post("/register", (req, res) => {
             if (err) res.status(500).send({ msg: "Error when adding new User!" });
             const token = jwt.sign({ id: newUser._id }, config.secretJWT, { expiresIn: "1h" });
             res.status(200).json({
-              msg: `Dodano uzytkownika ${newUser.email}`,
+              msg: `User ${newUser.email} registered succcessfully!`,
               token,
               registeredUser: {
                 id: newUser._id,

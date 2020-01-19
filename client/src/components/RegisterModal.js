@@ -8,10 +8,14 @@ import {
   FormGroup,
   Label,
   Input,
-  Alert
+  Alert,
+  NavLink
 } from "reactstrap";
 import { connect } from "react-redux";
-import { register, registerError } from "../actions/authActions";
+import { register, registerError, clearMsgs } from "../actions/authActions";
+
+import toaster from "toasted-notes";
+import "toasted-notes/src/styles.css";
 
 class RegisterModal extends Component {
   state = {
@@ -24,6 +28,14 @@ class RegisterModal extends Component {
     errorStatus: null,
     isAuthenticated: false
   };
+
+  componentDidUpdate() {
+    if (this.props.msg) {
+      this.toggle();
+      toaster.notify(this.props.msg, { duration: 3000 });
+      this.props.clearMsgs();
+    }
+  }
 
   toggle = () => this.setState({ modal: !this.state.modal });
 
@@ -50,7 +62,6 @@ class RegisterModal extends Component {
     if (password === passwordConfirm) {
       const user = { email, password };
       this.props.register(user);
-      //   this.toggle;
     } else {
       this.props.registerError(400, "Password are not the same!");
     }
@@ -59,9 +70,9 @@ class RegisterModal extends Component {
   render() {
     return (
       <div>
-        <Button color="primary" onClick={this.toggle}>
+        <NavLink href="#" onClick={this.toggle}>
           Register
-        </Button>
+        </NavLink>
         <Modal
           isOpen={this.state.modal}
           toggle={this.toggle}
@@ -130,12 +141,14 @@ const mapStateToProps = state => ({
   errorMsg: state.auth.errorMsg,
   errorStatus: state.auth.errorStatus,
   user: state.auth.user,
-  isAuthenticated: state.auth.isAuthenticated
+  isAuthenticated: state.auth.isAuthenticated,
+  msg: state.auth.msg
 });
 
 const mapDispatchToProps = dispatch => ({
   register: user => dispatch(register(user)),
-  registerError: (status, msg) => dispatch(registerError(status, msg))
+  registerError: (status, msg) => dispatch(registerError(status, msg)),
+  clearMsgs: () => dispatch(clearMsgs())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RegisterModal);

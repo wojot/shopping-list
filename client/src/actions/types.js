@@ -6,7 +6,7 @@ export const ADD_ITEM = 'ADD_ITEM'
 
 export const LOAD_ITEMS = 'LOAD_ITEMS'
 
-// export const REGISTER = 'REGISTER'
+export const CLEAR_MSGS = 'CLEAR_MSGS'
 
 export const REGISTER_ERROR = 'REGISTER_ERROR'
 
