@@ -9,7 +9,8 @@ import {
   Label,
   Input,
   Alert,
-  NavLink
+  NavLink,
+  Form
 } from "reactstrap";
 import { connect } from "react-redux";
 import { register, registerError, clearMsgs } from "../actions/authActions";
@@ -24,15 +25,15 @@ class RegisterModal extends Component {
     password: "",
     passwordConfirm: "",
     wrongConfirm: false,
-    errorMsg: "",
-    errorStatus: null,
+    msgSuccessRegister: "",
+    msgErrorRegister: "",
     isAuthenticated: false
   };
 
   componentDidUpdate() {
-    if (this.props.msg) {
+    if (this.props.msgSuccessRegister) {
       this.toggle();
-      toaster.notify(this.props.msg, { duration: 3000 });
+      toaster.notify(this.props.msgSuccessRegister, { duration: 3000 });
       this.props.clearMsgs();
     }
   }
@@ -82,46 +83,48 @@ class RegisterModal extends Component {
             Registration
           </ModalHeader>
           <ModalBody className="modalBody">
-            {this.props.errorMsg ? (
-              <Alert color="danger">{this.props.errorMsg}</Alert>
+            {this.props.msgErrorRegister ? (
+              <Alert color="danger">{this.props.msgErrorRegister}</Alert>
             ) : (
               ""
             )}
-            <FormGroup>
-              <Label for="email">Email</Label>
-              <Input
-                type="email"
-                name="email"
-                id="email"
-                placeholder="Please input your email"
-                onChange={this.handleEmail}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for="password">Password</Label>
-              <Input
-                type="password"
-                name="password"
-                id="password"
-                placeholder="Please input your password"
-                onChange={this.handlePassword}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for="passwordConfirm">
-                Password confirmation{" "}
-                {this.state.wrongConfirm
-                  ? "(Password confirmation must be ident to password!)"
-                  : ""}
-              </Label>
-              <Input
-                type="password"
-                name="passwordConfirm"
-                id="passwordConfirm"
-                placeholder="Please retype your password"
-                onChange={this.handlePasswordConfirm}
-              />
-            </FormGroup>
+            <Form>
+              <FormGroup>
+                <Label for="email">Email</Label>
+                <Input
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="Please input your email"
+                  onChange={this.handleEmail}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label for="password">Password</Label>
+                <Input
+                  type="password"
+                  name="password"
+                  id="password"
+                  placeholder="Please input your password"
+                  onChange={this.handlePassword}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label for="passwordConfirm">
+                  Password confirmation{" "}
+                  {this.state.wrongConfirm
+                    ? "(Password confirmation must be ident to password!)"
+                    : ""}
+                </Label>
+                <Input
+                  type="password"
+                  name="passwordConfirm"
+                  id="passwordConfirm"
+                  placeholder="Please retype your password"
+                  onChange={this.handlePasswordConfirm}
+                />
+              </FormGroup>
+            </Form>
           </ModalBody>
           <ModalFooter className="modalBody">
             <Button color="primary" onClick={this.onSubmit}>
@@ -138,8 +141,8 @@ class RegisterModal extends Component {
 }
 
 const mapStateToProps = state => ({
-  errorMsg: state.auth.errorMsg,
-  errorStatus: state.auth.errorStatus,
+  msgErrorRegister: state.auth.msgErrorRegister,
+  msgSuccessRegister: state.auth.msgSuccessRegister,
   user: state.auth.user,
   isAuthenticated: state.auth.isAuthenticated,
   msg: state.auth.msg

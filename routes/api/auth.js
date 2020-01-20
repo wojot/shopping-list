@@ -12,7 +12,7 @@ router.post("/", (req, res) => {
   User.findOne({ email }, (err, usr) => {
     if (err) res.status(500).send({ msg: "Database error!" });
     if(usr == null){
-        res.status(500).send({ msg: "Email not found!" });
+        res.status(400).send({ msg: "Email not found!" });
         return;
     }
     bcrypt.compare(password, usr.password, (err, theSame) => {
@@ -25,7 +25,7 @@ router.post("/", (req, res) => {
             user: { id: usr._id, email: usr.email, added: usr.added }
         });
       } else {
-        res.status(500).send({ msg: "Wrong password!" });
+        res.status(400).send({ msg: "Wrong password!" });
       }  
     });
   });

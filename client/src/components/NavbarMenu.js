@@ -5,10 +5,11 @@ import {
   NavbarToggler,
   NavbarBrand,
   Nav,
-  NavItem,
-  NavLink
+  NavItem
 } from "reactstrap";
 import RegisterModal from "./RegisterModal";
+import LoginModal from "./LoginModal";
+import Logout from "./Logout";
 
 const NavbarMenu = props => {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,10 +24,13 @@ const NavbarMenu = props => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <NavLink>Login</NavLink>
+              <LoginModal />
             </NavItem>
             <NavItem>
               <RegisterModal />
+            </NavItem>
+            <NavItem>
+              <Logout />
             </NavItem>
           </Nav>
         </Collapse>

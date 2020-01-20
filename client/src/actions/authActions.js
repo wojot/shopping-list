@@ -1,10 +1,17 @@
-import { REGISTER_ERROR, REGISTER_SUCCESS, CLEAR_MSGS } from "./types";
+import {
+  REGISTER_SUCCESS,
+  REGISTER_ERROR,
+  LOGIN_SUCCESS,
+  LOGIN_ERROR,
+  CLEAR_MSGS,
+  LOGOUT
+} from "./types";
 const axios = require("axios");
 
 export const register = user => dispatch => {
   axios({
     method: "post",
-    url: "http://localhost:5000/api/users/register",
+    url: "api/users/register",
     data: {
       email: user.email,
       password: user.password
@@ -37,5 +44,30 @@ export const registerSuccess = (userPayload, msg, token) => dispatch => {
 };
 
 export const clearMsgs = () => dispatch => {
-  dispatch({type: CLEAR_MSGS});
-}
+  dispatch({ type: CLEAR_MSGS });
+};
+
+export const login = userLoginData => dispatch => {
+  axios({
+    method: "post",
+    url: "api/auth",
+    data: userLoginData
+  })
+    .then(function(response) {
+      const userPayload = response.data.user;
+      const msg = response.data.msg;
+      const token = response.data.token;
+
+      dispatch({ type: LOGIN_SUCCESS, userPayload, msg, token });
+    })
+    .catch(function(error) {
+      const msg = error.response.data.msg;
+      const status = error.response.status;
+
+      dispatch({ type: LOGIN_ERROR, msg, status });
+    });
+};
+
+export const logout = () => dispatch => {
+  dispatch({ type: LOGOUT });
+};
