@@ -2,33 +2,41 @@ import {
   GET_ITEMS,
   DELETE_ITEM,
   ADD_ITEM,
-  LOAD_ITEMS
+  LOAD_ITEMS,
+  GET_ITEMS_ERROR
 } from "./types.js";
 import axios from "axios";
 
 export const getItems = () => dispatch => {
+  const options = {
+    headers: { "x-auth-token": localStorage.getItem("token"),
+    'Content-type': 'application/json' }
+  };
+
   dispatch(loadItems());
 
   axios
-    .get('/api/items')
+    .get("/api/items", options)
     .then(function(response) {
+      // console.log(response)
       dispatch({
         type: GET_ITEMS,
         payload: response.data
       });
     })
     .catch(function(error) {
-      return {
-        type: GET_ITEMS,
-        payload: error
-      };
+      dispatch({
+        type: GET_ITEMS_ERROR,
+        msg: error.response.data.msg,
+        status: error.response.status
+      });
     });
 };
 
 export const deleteItem = idItem => dispatch => {
   axios({
     method: "delete",
-    url: '/api/items',
+    url: "/api/items",
     data: {
       id: idItem
     }
@@ -43,7 +51,7 @@ export const deleteItem = idItem => dispatch => {
 export const addItem = name => dispatch => {
   axios({
     method: "post",
-    url: '/api/items',
+    url: "/api/items",
     data: {
       name: name
     }
@@ -56,5 +64,5 @@ export const addItem = name => dispatch => {
 };
 
 export const loadItems = () => ({
-    type: LOAD_ITEMS
-  })
+  type: LOAD_ITEMS
+});

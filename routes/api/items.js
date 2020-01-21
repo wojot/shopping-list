@@ -2,18 +2,22 @@ var express = require("express");
 var router = express.Router();
 const mongoose = require("mongoose");
 var Item = mongoose.model("Item", require("../../models/Item"));
+const authMiddleware = require("../../middleware/authMiddleware");
 
 // router.get("/", (req, res) => {
 //   res.send("Pobierz api /api/items");
 // });
 
-
 // @route   GET api/items
 // @desc    Get items
 // @access  Private
-router.get("/", (req, res) => {
+router.get("/", authMiddleware, (req, res) => {
   Item.find((err, item) => {
-    res.json(item);
+    if (err) {
+      res.status(401).json({});
+    } else {
+      res.json(item);
+    }
   });
 });
 

@@ -25,6 +25,7 @@ class LoginModal extends Component {
       this.toggle();
       toaster.notify(this.props.msgSuccessLogin, { duration: 3000 });
       this.props.clearMsgs();
+      this.forceUpdate();
     }
   }
 

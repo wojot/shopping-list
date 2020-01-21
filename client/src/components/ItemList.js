@@ -14,30 +14,41 @@ class ItemList extends Component {
   };
 
   render() {
-    if (!this.props.loading) {
-      return (
-        <div>
-          {this.props.items.map(item => (
-            <div className="itemRow" key={item._id}>
-              <Button color="danger" onClick={() => this.deleteItem(item._id)}>
-                X
-              </Button>{" "}
-              {item.name} <small>({item._id})</small>
-            </div>
-          ))}
-        </div>
-      );
+    if (this.props.status === 401) {
+      return <div>{this.props.msg}</div>;
     } else {
-      return (
-        <div><img src={loading} alt="loading" width="100px" /></div> 
-      );
+      if (!this.props.loading) {
+        return (
+          <div>
+            {this.props.items.map(item => (
+              <div className="itemRow" key={item._id}>
+                <Button
+                  color="danger"
+                  onClick={() => this.deleteItem(item._id)}
+                >
+                  X
+                </Button>{" "}
+                {item.name} <small>({item._id})</small>
+              </div>
+            ))}
+          </div>
+        );
+      } else {
+        return (
+          <div>
+            <img src={loading} alt="loading" width="100px" />
+          </div>
+        );
+      }
     }
   }
 }
 
 const mapStateToProps = state => ({
   items: state.items.items,
-  loading: state.items.loadingItems
+  loading: state.items.loadingItems,
+  status: state.items.status,
+  msg: state.items.msg
 });
 
 const mapDispatchToProps = dispatch => ({

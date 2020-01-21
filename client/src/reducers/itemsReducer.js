@@ -2,12 +2,15 @@ import {
   GET_ITEMS,
   DELETE_ITEM,
   ADD_ITEM,
-  LOAD_ITEMS
+  LOAD_ITEMS,
+  GET_ITEMS_ERROR
 } from "../actions/types.js";
 
 const initialState = {
   items: [],
-  loadingItems: false
+  loadingItems: false,
+  status: null,
+  msg: ''
 };
 
 const items = (state = initialState, action) => {
@@ -18,6 +21,9 @@ const items = (state = initialState, action) => {
         items: action.payload,
         loadingItems: false
       };
+    case GET_ITEMS_ERROR:
+      const { msg, status } = action;
+      return { ...state, status, msg };
     case DELETE_ITEM:
       return {
         ...state,
