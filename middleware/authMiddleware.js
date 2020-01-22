@@ -6,12 +6,14 @@ const authMiddleware = (req, res, next) => {
 
   if (!token) res.status(401).json({ msg: "You are not authorized!" });
 
-  jwt.verify(token, config.secretJWT, (err, decoded) => {
-    if (err) res.status(401).json({ msg: "You are not authorized!" });
-    req.userId = decoded.id;
-  });
+  try {
+    const decoded = jwt.verify(token, config.secretJWT);
+    req.user = decoded;
+    next();
+  } catch (e) {
+    res.status(400).json({ msg: 'Token is not valid' });
+  }
 
-  next();
 };
 
 module.exports = authMiddleware;

@@ -11,7 +11,7 @@ const axios = require("axios");
 export const register = user => dispatch => {
   axios({
     method: "post",
-    url: "api/users/register",
+    url: "http://localhost:5000/api/users/register",
     data: {
       email: user.email,
       password: user.password
@@ -50,7 +50,7 @@ export const clearMsgs = () => dispatch => {
 export const login = userLoginData => dispatch => {
   axios({
     method: "post",
-    url: "api/auth",
+    url: "http://localhost:5000/api/auth",
     data: userLoginData
   })
     .then(function(response) {

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
+import { connect } from "react-redux";
 import {
   Collapse,
   Navbar,
@@ -16,6 +17,21 @@ const NavbarMenu = props => {
 
   const toggle = () => setIsOpen(!isOpen);
 
+  const modules = props.isAuthenticated ? (
+    <NavItem>
+      <Logout />
+    </NavItem>
+  ) : (
+    <Fragment>
+      <NavItem>
+        <LoginModal />
+      </NavItem>
+      <NavItem>
+        <RegisterModal />
+      </NavItem>
+    </Fragment>
+  );
+
   return (
     <div>
       <Navbar color="dark" dark expand="md">
@@ -23,15 +39,7 @@ const NavbarMenu = props => {
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
-            <NavItem>
-              <LoginModal />
-            </NavItem>
-            <NavItem>
-              <RegisterModal />
-            </NavItem>
-            <NavItem>
-              <Logout />
-            </NavItem>
+            {modules}
           </Nav>
         </Collapse>
       </Navbar>
@@ -39,4 +47,8 @@ const NavbarMenu = props => {
   );
 };
 
-export default NavbarMenu;
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps, null)(NavbarMenu);

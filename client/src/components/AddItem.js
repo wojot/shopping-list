@@ -23,9 +23,11 @@ const AddItem = props => {
     toggle();
   };
 
+  const disabled = props.isAuthenticated ? false : true;
+
   return (
     <div>
-      <Button color="primary" onClick={toggle}>
+      <Button color="primary" onClick={toggle} disabled={disabled}>
         Add new
       </Button>
       <Modal isOpen={modal} toggle={toggle} className="modalBody">
@@ -57,8 +59,12 @@ const AddItem = props => {
   );
 };
 
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+
 const mapDispatchToProps = dispatch => ({
   addItem: name => dispatch(addItem(name))
 });
 
-export default connect(undefined, mapDispatchToProps)(AddItem);
+export default connect(mapStateToProps, mapDispatchToProps)(AddItem);

@@ -14,8 +14,8 @@ class ItemList extends Component {
   };
 
   render() {
-    if (this.props.status === 401) {
-      return <div>{this.props.msg}</div>;
+    if (!this.props.isAuthenticated) {
+      return <div>You are not authenticated</div>;
     } else {
       if (!this.props.loading) {
         return (
@@ -48,7 +48,8 @@ const mapStateToProps = state => ({
   items: state.items.items,
   loading: state.items.loadingItems,
   status: state.items.status,
-  msg: state.items.msg
+  msg: state.items.msg,
+  isAuthenticated: state.auth.isAuthenticated
 });
 
 const mapDispatchToProps = dispatch => ({

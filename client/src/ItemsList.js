@@ -17,7 +17,7 @@ class ItemsList extends Component {
     deleteItem = (itemId) => {
         axios({
                 method: 'post',
-                url: '/api/items',
+                url: 'http://localhost:5000/api/items',
                 data: {
                     itemId: itemId
                 }
@@ -31,7 +31,7 @@ class ItemsList extends Component {
 
 
     render() {
-        axios.get('/api/items')
+        axios.get('http://localhost:5000/api/items')
             .then(res => {
                 this.setState({
                     items: res.data

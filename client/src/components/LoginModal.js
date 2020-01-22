@@ -21,6 +21,7 @@ class LoginModal extends Component {
   state = { modal: false, email: "", password: "" };
 
   componentDidUpdate() {
+    console.log(this.props)
     if (this.props.msgSuccessLogin) {
       this.toggle();
       toaster.notify(this.props.msgSuccessLogin, { duration: 3000 });
