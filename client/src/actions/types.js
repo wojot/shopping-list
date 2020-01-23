@@ -19,3 +19,6 @@ export const LOGIN_ERROR = 'LOGIN_ERROR'
 export const LOGOUT = 'LOGOUT'
 
 export const GET_ITEMS_ERROR = 'GET_ITEMS_ERROR'
+
+
+export const USER_LOADED = 'USER_LOADED'

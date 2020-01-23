@@ -8,6 +8,7 @@ import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
 import rootReducer from "./reducers";
 import thunk from "redux-thunk";
+import {loadUser} from './actions/authActions'
 
 const store = createStore(
   rootReducer,
@@ -16,9 +17,15 @@ const store = createStore(
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 ); //develop
-// const store = createStore(rootReducer, applyMiddleware(thunk));                                                                                       //production
+// const store = createStore(rootReducer, applyMiddleware(thunk)); //production
+
 
 export default class App extends Component {
+
+  componentDidMount(){
+    store.dispatch(loadUser())
+  }
+
   render() {
     return (
       <Provider store={store}>

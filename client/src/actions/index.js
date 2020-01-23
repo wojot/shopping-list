@@ -9,8 +9,10 @@ import axios from "axios";
 
 export const getItems = () => dispatch => {
   const options = {
-    headers: { "x-auth-token": localStorage.getItem("token"),
-    'Content-type': 'application/json' }
+    headers: {
+      "x-auth-token": localStorage.getItem("token"),
+      "Content-type": "application/json"
+    }
   };
 
   dispatch(loadItems());
@@ -18,7 +20,6 @@ export const getItems = () => dispatch => {
   axios
     .get("http://localhost:5000/api/items", options)
     .then(function(response) {
-      // console.log(response)
       dispatch({
         type: GET_ITEMS,
         payload: response.data

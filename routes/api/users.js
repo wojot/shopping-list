@@ -48,8 +48,13 @@ router.post("/register", (req, res) => {
   });
 });
 
-router.get('/details', authMiddleware, (req, res) => { 
-  res.send("hello");
+router.get('/details', authMiddleware, (req, res) => {
+  User.findById(req.user.id, (err, user) => {
+    if (err) res.status(500).send({
+      msg: "Error when loading user!"
+    });
+    res.json(user)
+  })
 })
 
 module.exports = router;

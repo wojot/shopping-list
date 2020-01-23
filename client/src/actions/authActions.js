@@ -4,9 +4,29 @@ import {
   LOGIN_SUCCESS,
   LOGIN_ERROR,
   CLEAR_MSGS,
-  LOGOUT
+  LOGOUT,
+  USER_LOADED
 } from "./types";
 const axios = require("axios");
+
+export const loadUser = () => (dispatch, getState) => {
+  const token = getState().auth.token;
+  const header = {
+    headers: {
+      "x-auth-token": token
+    }
+  };
+  axios
+    .get("http://localhost:5000/api/users/details", header)
+    .then(response => {
+      dispatch({ type: USER_LOADED, userPayload: response.data });
+    })
+    .catch(error => {
+      dispatch({
+        type: LOGOUT
+      });
+    });
+};
 
 export const register = user => dispatch => {
   axios({

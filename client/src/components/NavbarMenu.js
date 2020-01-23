@@ -18,9 +18,12 @@ const NavbarMenu = props => {
   const toggle = () => setIsOpen(!isOpen);
 
   const modules = props.isAuthenticated ? (
-    <NavItem>
-      <Logout />
-    </NavItem>
+
+    <Fragment>
+      <NavItem>
+       <Logout />
+      </NavItem>
+    </Fragment>
   ) : (
     <Fragment>
       <NavItem>
@@ -36,7 +39,7 @@ const NavbarMenu = props => {
     <div>
       <Navbar color="dark" dark expand="md">
         <NavbarBrand href="/">Shopping List</NavbarBrand>
-        <NavbarToggler onClick={toggle} />
+        <NavbarToggler onClick={toggle} /><span>{props.user ? `You are logged in as ${props.user.email}`:''}</span>
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             {modules}
@@ -48,7 +51,8 @@ const NavbarMenu = props => {
 };
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
+  isAuthenticated: state.auth.isAuthenticated,
+  user: state.auth.user
 });
 
 export default connect(mapStateToProps, null)(NavbarMenu);
