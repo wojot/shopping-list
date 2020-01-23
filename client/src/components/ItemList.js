@@ -14,33 +14,24 @@ class ItemList extends Component {
   };
 
   render() {
-    if (!this.props.isAuthenticated) {
-      return <div>You are not authenticated</div>;
-    } else {
-      if (!this.props.loading) {
-        return (
-          <div>
-            {this.props.items.map(item => (
-              <div className="itemRow" key={item._id}>
-                <Button
-                  color="danger"
-                  onClick={() => this.deleteItem(item._id)}
-                >
-                  X
-                </Button>{" "}
-                {item.name} <small>({item._id})</small>
-              </div>
-            ))}
+    return !this.props.isAuthenticated ? (
+      <div>You are not authenticated</div>
+    ) : !this.props.loading ? (
+      <div>
+        {this.props.items.map(item => (
+          <div className="itemRow" key={item._id}>
+            <Button color="danger" onClick={() => this.deleteItem(item._id)}>
+              X
+            </Button>{" "}
+            {item.name} <small>({item._id})</small>
           </div>
-        );
-      } else {
-        return (
-          <div>
-            <img src={loading} alt="loading" width="100px" />
-          </div>
-        );
-      }
-    }
+        ))}
+      </div>
+    ) : (
+      <div>
+        <img src={loading} alt="loading" width="100px" />
+      </div>
+    );
   }
 }
 
