@@ -11,6 +11,7 @@ import {
 } from "reactstrap";
 import { connect } from "react-redux";
 import { addItem } from "../actions";
+import PropTypes from "prop-types";
 
 const AddItem = props => {
   const [modal, setModal] = useState(false);
@@ -57,6 +58,11 @@ const AddItem = props => {
       </Modal>
     </div>
   );
+};
+
+AddItem.propTypes = {
+  isAuthenticated: PropTypes.bool,
+  addItem: PropTypes.func
 };
 
 const mapStateToProps = state => ({

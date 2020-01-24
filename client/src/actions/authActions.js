@@ -89,5 +89,6 @@ export const login = userLoginData => dispatch => {
 };
 
 export const logout = () => dispatch => {
+  dispatch(clearMsgs());
   dispatch({ type: LOGOUT });
 };

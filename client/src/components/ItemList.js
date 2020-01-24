@@ -3,10 +3,17 @@ import { connect } from "react-redux";
 import { getItems, deleteItem } from "../actions";
 import { Button } from "reactstrap";
 import loading from "../loading.gif";
+import Moment from "react-moment";
+import "moment-timezone";
+import PropTypes from "prop-types";
 
 class ItemList extends Component {
   componentDidMount() {
     this.props.getItems();
+  }
+
+  componentDidUpdate() {
+    if (this.props.isAuthenticated && this.props.loading) this.props.getItems();
   }
 
   deleteItem = id => {
@@ -23,7 +30,7 @@ class ItemList extends Component {
             <Button color="danger" onClick={() => this.deleteItem(item._id)}>
               X
             </Button>{" "}
-            {item.name} <small>({item._id})</small>
+            {item.name} <small>({item._id}) Added on: <Moment format="DD.MM.YYYY HH:mm">{item.added}</Moment></small>
           </div>
         ))}
       </div>
@@ -34,6 +41,16 @@ class ItemList extends Component {
     );
   }
 }
+
+ItemList.propTypes = {
+  items: PropTypes.array,
+  loading: PropTypes.bool,
+  status: PropTypes.number,
+  msg: PropTypes.string,
+  isAuthenticated: PropTypes.bool,
+  getItems: PropTypes.func,
+  deleteItem: PropTypes.func
+};
 
 const mapStateToProps = state => ({
   items: state.items.items,

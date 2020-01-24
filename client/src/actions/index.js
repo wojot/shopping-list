@@ -15,10 +15,7 @@ export const getItems = () => dispatch => {
     }
   };
 
-  dispatch(loadItems())
-
-  console.log(options)
-  console.log(localStorage.getItem("token"))
+  dispatch(loadItems());
 
   axios
     .get("http://localhost:5000/api/items", options)

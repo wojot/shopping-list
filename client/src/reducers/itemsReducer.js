@@ -10,7 +10,7 @@ const initialState = {
   items: [],
   loadingItems: false,
   status: null,
-  msg: ''
+  msg: ""
 };
 
 const items = (state = initialState, action) => {

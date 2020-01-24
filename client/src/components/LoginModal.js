@@ -16,6 +16,7 @@ import { connect } from "react-redux";
 import { login, clearMsgs } from "../actions/authActions";
 import toaster from "toasted-notes";
 import "toasted-notes/src/styles.css";
+import PropTypes from 'prop-types'
 
 class LoginModal extends Component {
   state = { modal: false, email: "", password: "" };
@@ -95,6 +96,14 @@ class LoginModal extends Component {
       </div>
     );
   }
+}
+
+LoginModal.propTypes = {
+  msgSuccessLogin: PropTypes.string,
+  msgErrorLogin: PropTypes.string,
+  user: PropTypes.object,
+  login: PropTypes.func,
+  clearMsgs: PropTypes.func
 }
 
 const mapStateToProps = state => ({

@@ -14,9 +14,9 @@ import {
 } from "reactstrap";
 import { connect } from "react-redux";
 import { register, registerError, clearMsgs } from "../actions/authActions";
-
 import toaster from "toasted-notes";
 import "toasted-notes/src/styles.css";
+import PropTypes from "prop-types";
 
 class RegisterModal extends Component {
   state = {
@@ -139,6 +139,17 @@ class RegisterModal extends Component {
     );
   }
 }
+
+RegisterModal.propTypes = {
+  msgErrorRegister: PropTypes.string,
+  msgSuccessRegister: PropTypes.string,
+  user: PropTypes.object,
+  isAuthenticated: PropTypes.bool,
+  msg: PropTypes.string,
+  register: PropTypes.func,
+  registerError: PropTypes.func,
+  clearMsgs: PropTypes.func
+};
 
 const mapStateToProps = state => ({
   msgErrorRegister: state.auth.msgErrorRegister,

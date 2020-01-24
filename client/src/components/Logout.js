@@ -4,6 +4,7 @@ import { logout } from "../actions/authActions";
 import { NavLink } from "reactstrap";
 import toaster from "toasted-notes";
 import "toasted-notes/src/styles.css";
+import PropTypes from "prop-types";
 
 class Logout extends Component {
   handleLogout = () => {
@@ -19,6 +20,10 @@ class Logout extends Component {
     );
   }
 }
+
+Logout.propTypes = {
+  logout: PropTypes.func
+};
 
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(logout())

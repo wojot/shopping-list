@@ -10,14 +10,14 @@ import rootReducer from "./reducers";
 import thunk from "redux-thunk";
 import {loadUser} from './actions/authActions'
 
-const store = createStore(
-  rootReducer,
-  compose(
-    applyMiddleware(thunk),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-  )
-); //develop
-// const store = createStore(rootReducer, applyMiddleware(thunk)); //production
+// const store = createStore(
+//   rootReducer,
+//   compose(
+//     applyMiddleware(thunk),
+//     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+//   )
+// ); //develop
+const store = createStore(rootReducer, applyMiddleware(thunk)); //production
 
 
 export default class App extends Component {
