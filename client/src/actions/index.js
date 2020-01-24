@@ -18,7 +18,7 @@ export const getItems = () => dispatch => {
   dispatch(loadItems());
 
   axios
-    .get("http://localhost:5000/api/items", options)
+    .get("/api/items", options)
     .then(function(response) {
       dispatch({
         type: GET_ITEMS,
@@ -37,7 +37,7 @@ export const getItems = () => dispatch => {
 export const deleteItem = idItem => dispatch => {
   axios({
     method: "delete",
-    url: "http://localhost:5000/api/items",
+    url: "/api/items",
     data: {
       id: idItem
     }
@@ -52,7 +52,7 @@ export const deleteItem = idItem => dispatch => {
 export const addItem = name => dispatch => {
   axios({
     method: "post",
-    url: "http://localhost:5000/api/items",
+    url: "/api/items",
     data: {
       name: name
     }

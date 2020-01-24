@@ -17,7 +17,7 @@ export const loadUser = () => (dispatch, getState) => {
     }
   };
   axios
-    .get("http://localhost:5000/api/users/details", header)
+    .get("/api/users/details", header)
     .then(response => {
       dispatch({ type: USER_LOADED, userPayload: response.data });
     })
@@ -31,7 +31,7 @@ export const loadUser = () => (dispatch, getState) => {
 export const register = user => dispatch => {
   axios({
     method: "post",
-    url: "http://localhost:5000/api/users/register",
+    url: "/api/users/register",
     data: {
       email: user.email,
       password: user.password
@@ -70,7 +70,7 @@ export const clearMsgs = () => dispatch => {
 export const login = userLoginData => dispatch => {
   axios({
     method: "post",
-    url: "http://localhost:5000/api/auth",
+    url: "/api/auth",
     data: userLoginData
   })
     .then(function(response) {
