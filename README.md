@@ -1,3 +1,5 @@
+Technologies used: MERN (Mongo Express React Node)
+
 ## Available Scripts
 
 To start develop version run:
