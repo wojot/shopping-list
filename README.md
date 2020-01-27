@@ -1,4 +1,6 @@
-Technologies used: MERN (Mongo Express React Node)
+Simple shopping list app. Technologies: MERN (Mongo Express React Node including Redux and reactstrap) 
+
+![Screen](screen.png)
 
 ## Available Scripts
 
