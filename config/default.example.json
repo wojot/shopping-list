@@ -1,0 +1,5 @@
+{
+    "mongoURI": "YourMongoDBurl",
+    "secretJWT": "YourAnySecretString",
+    "saltRounds": "YourInteger"
+}
