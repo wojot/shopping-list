@@ -1,5 +1,0 @@
-{
-    "mongoURI": "mongodb+srv://wojot:wojtek11@fullstack-app-2mpeu.mongodb.net/test?retryWrites=true&w=majority",
-    "secretJWT": "secretPassWojtek11",
-    "saltRounds": "10"
-}
